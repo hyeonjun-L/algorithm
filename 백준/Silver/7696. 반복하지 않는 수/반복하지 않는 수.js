@@ -1,7 +1,7 @@
 const fs = require("fs")
 const input = fs.readFileSync("/dev/stdin").toString().split('\n').map(Number);
 let i = 0
-let answer = [] //console.log의 시간 단축
+let answer = []
 let NOoverlap = []
 
 for(let j = 1; NOoverlap.length <= 1000000; j++)
@@ -10,7 +10,7 @@ for(let j = 1; NOoverlap.length <= 1000000; j++)
 }
 
 
-while(i < input.length -1){  // 여러개의 테스트 케이스
+while(i < input.length -1){
     answer[i] = (solution(input[i]))
     i++
 }
