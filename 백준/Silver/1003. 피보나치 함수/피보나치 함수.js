@@ -1,21 +1,17 @@
-var fs = require('fs')
-var input = fs.readFileSync('/dev/stdin').toString().trim().split('\n')
-var t = input[0] / 1
-var ns = []
-for (var i = 1; i < input.length; i++) {
-    ns.push(input[i]/1)
-}
+const fs = require("fs")
+const input = fs.readFileSync("/dev/stdin").toString().split('\n').map(Number);
+const F = [
+         1,       0,        1,        1,        2,
+         3,       5,        8,       13,       21,
+        34,      55,       89,      144,      233,
+       377,     610,      987,     1597,     2584,
+      4181,    6765,    10946,    17711,    28657,
+     46368,   75025,   121393,   196418,   317811,
+    514229,  832040,  1346269,  2178309,  3524578,
+   5702887, 9227465, 14930352, 24157817, 39088169,
+  63245986, 102334155
+]
 
-var dp = []
-dp[0] = [1, 0]
-dp[1] = [0, 1]
-for (var idx = 2; idx < 41; idx++) {
-    dp[idx] = [(dp[idx - 1][0] + dp[idx - 2][0]), (dp[idx - 1][1] + dp[idx - 2][1])]
+for(let i = 1; i <= input[0]; i++){
+    console.log(F[input[i]]+' '+F[input[i]+1])
 }
-
-var n = ''
-for(var i=0; i<ns.length; i++){
-    n += dp[ns[i]].join(' ') + '\n'
-}
-
-console.log(n)
