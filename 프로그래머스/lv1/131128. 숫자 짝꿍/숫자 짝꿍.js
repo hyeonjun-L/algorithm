@@ -1,37 +1,25 @@
 function solution(X, Y) {
-    if(X.length > Y.length)
-    {
-        const C = X
-        X = Y
-        Y = C
-    }
-    X = X.split('').sort((a, b) => b - a);
-    Y = Y.split('').sort((a, b) => a - b);
+    const commonNumbers = [...new Set(X.split(''))].filter((number) => {
+        return Y.includes(number);
+    }).sort((a, b) => b - a)
 
-    let answer = [];
-    let INindex = Y.length
+    if (!commonNumbers.length) return '-1';
 
-        for (let i = 0; i < X.length; i) {
-        const index = Y.lastIndexOf(X[i], INindex)
-        if (index !== -1) {
-            INindex = index -1
-            answer[answer.length] = X[i]
-            i++
-            if(INindex < 0) break;
-        }
-        else
-        {
-            for(let j = 1; j < 3000000; j++){
-                if(X[i] !== X[i + j])
-                {
-                    i += j
-                    break
-                }
-            }
-        }
-    }
+    if (!Number(commonNumbers[0])) return '0';
 
-    if (answer.length === 0) return "-1"
-    else if (answer[0] === '0') return "0"
-    return answer.join('')
-}
+    return commonNumbers.map((number) => {
+        const Xcount = X.split('').reduce((count, Xnumber) => {
+            if (Xnumber === number) return count += 1;
+
+            return count;
+        }, 0)
+
+        const Ycount = Y.split('').reduce((count, Ynumber) => {
+            if (Ynumber === number) return count += 1;
+
+            return count;
+        }, 0)        
+
+        return Xcount <= Ycount ? number.repeat(Xcount) : number.repeat(Ycount)
+    }).join('')
+} 
