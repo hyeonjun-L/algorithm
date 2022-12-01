@@ -1,4 +1,5 @@
 function solution(s) {
+    if (s.length === 1) return 1;
     let x = [];
     let dx = [];
     let answer = 0;
@@ -11,4 +12,4 @@ function solution(s) {
         }
     });
     return (x[0] ? ++answer : answer)
-}
+} 
