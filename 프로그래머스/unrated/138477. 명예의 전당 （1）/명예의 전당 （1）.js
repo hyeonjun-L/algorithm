@@ -8,3 +8,4 @@ function solution(k, score) {
         return a
     }, [])
 } 
+
