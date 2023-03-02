@@ -1,29 +1,24 @@
-const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
-let input = require('fs').readFileSync(filePath).toString().trim().split("\n");
+const fs = require("fs");
+const input = fs.readFileSync("/dev/stdin").toString().trim().split(/\s+/).slice(1);
 
-const N = +input[0];
-let cnt = 0;
-function isPrime(n) {
-    if( n <= 1 )
-        return 0;      
-	
-    if( n % 2 == 0) 
-        return n==2 ? 1 : 0;
-         
-    for(i = 3; i <= Math.sqrt(n); i += 2) { 
-		
-        if( n % i == 0)
-            return 0;
+solution(input);
+
+function solution(arr) {
+  const max = Math.max(...arr);
+  const isPrime = new Array(max + 1).fill(true);
+  isPrime[0] = false;
+  isPrime[1] = false;
+  for (let i = 2; i <= Math.sqrt(max); i++) {
+    if (isPrime[i]) {
+      for (let j = i * i; j <= max; j += i) {
+        isPrime[j] = false;
+      }
     }
-    
-	return 1; 
-}
+  }
 
-for (let i = 0; i < N; i++) {
-    let num = input[1].split(" ")[i];
-    if (isPrime(num) == 1) {
-        cnt += 1;
-    }
+  let count = 0;
+  for (let num of arr) {
+    if (isPrime[num]) count++;
+  }
+  console.log(count);
 }
-
-console.log(cnt);
