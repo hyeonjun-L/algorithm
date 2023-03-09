@@ -1,14 +1,18 @@
 function solution(wallpaper) {
-    let answer = [Infinity, Infinity, 0, 0];
-    wallpaper.forEach((line, col) => {
-        if (line.includes("#")) {
-            answer[0] = Math.min(col, answer[0]);
-            answer[2] = col + 1;
+    const row = wallpaper[0].length
+    const column = wallpaper.length
+    let [cmin, cmax, rmin, rmax] = [50, -1, 50, -1]
+
+    for (let r=0; r<row; r++) {
+        for (let c=0; c<column; c++) {
+            if (wallpaper[c][r] === '#') {
+                cmin = Math.min(cmin, c)
+                cmax = Math.max(cmax, c)
+                rmin = Math.min(rmin, r)
+                rmax = Math.max(rmax, r)
+            }
         }
-        const fileFirstIndex = line.indexOf("#");
-        const fileLastIndex = line.lastIndexOf("#") + 1;
-        if (fileFirstIndex !== -1) answer[1] = Math.min(fileFirstIndex, answer[1]);
-        answer[3] = Math.max(fileLastIndex, answer[3]);
-    });
-    return answer;
+    }
+
+    return [cmin, rmin, cmax+1, rmax+1]
 }
