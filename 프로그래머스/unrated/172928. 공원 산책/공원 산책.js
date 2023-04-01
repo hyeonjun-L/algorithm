@@ -1,44 +1,23 @@
 function solution(park, routes) {
-  const currentLocation = park.join("").indexOf("S");
-  let [Row, Col] = [
-    currentLocation % park[0].length,
-    Math.floor(currentLocation / park[0].length),
-  ];
-
-  park = park.map((road) => road.split(""));
-  for (let route of routes) {
-    let obstacle = false;
-    const [direction, move] = [route[0], Number(route[2])];
-    if (direction === "E" && Row + move < park[0].length) {
-      if (!park[Col].slice(Row, Row + move + 1).includes("X")) {
-        Row = Row + move;
-      }
-    } else if (direction === "W" && Row - move >= 0) {
-      if (!park[Col].slice(Row - move, Row).includes("X")) {
-        Row = Row - move;
-      }
-    } else if (direction === "N" && Col - move >= 0) {
-      for (let i = Col; i >= Col - move; i--) {
-        if (park[i][Row] === "X") {
-          obstacle = true;
-          break;
+        const dirs = { E: [0, 1], W: [0, -1], S: [1, 0], N: [-1, 0] };
+        let [x, y] = [0, 0];
+        for (let i = 0; i < park.length; i++) {
+          if (park[i].includes('S')) {
+            [x, y] = [i, park[i].indexOf('S')];
+            break;
+          }
         }
-      }
-      if (!obstacle) {
-        Col -= move;
-      }
-    } else if (direction === "S" && Col + move < park.length) {
-      for (let i = Col; i <= Col + move; i++) {
-        if (park[i][Row] === "X") {
-          obstacle = true;
-          break;
-        }
-      }
-      if (!obstacle) {
-        Col += move;
-      }
-    }
-  }
-  return [Col, Row];
-}
 
+        routes.forEach((route) => {
+          const [r, n] = route.split(' ');
+          let [nx, ny] = [x, y];
+          let cnt = 0;
+          while (cnt < n) {
+            [nx, ny] = [nx + dirs[r][0], ny + dirs[r][1]];
+            if (!park[nx] || !park[nx][ny] || park[nx][ny] === 'X') break;
+            cnt++;
+          }
+          if (cnt == n) [x, y] = [nx, ny];
+        });
+        return [x, y];
+      }
