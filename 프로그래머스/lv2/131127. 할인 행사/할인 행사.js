@@ -6,7 +6,6 @@ function solution(want, number, discount) {
   let answer = 0;
 
   for (var i = 0; i < discount.length; i++) {
-    if (want.includes(discount[i])) {
       let copyObj = { ...wantObj };
       for (let stuff of discount.slice(i, i + 10)) {
         if (copyObj[stuff]) {
@@ -20,7 +19,6 @@ function solution(want, number, discount) {
       ) {
         answer++;
       }
-    }
   }
   return answer;
 }
