@@ -1,19 +1,18 @@
 function solution(priorities, location) {
-  const myDocuments = String(priorities[location]);
-  priorities[location] = myDocuments;
+  let result = 0;
+  let index = 0;
+  let shift = 0;
+  priorities[location] = `${priorities[location]}`;
 
-  let outNumber = 0;
-  let count = 0;
-  while (outNumber !== myDocuments) {
-    let maxNumber = Math.max(...priorities);
-    outNumber = priorities.shift();
-    if (maxNumber > outNumber) {
-      priorities.push(outNumber);
-      outNumber = 0;
+  while (typeof shift !== "string") {
+    shift = priorities[index];
+    if (priorities.slice(index).find((value) => value > shift) ?? false) {
+      priorities.push(shift);
+      shift = 0;
     } else {
-      count++;
+      result++;
     }
+    index++;
   }
-  return count;
+  return result;
 }
-
