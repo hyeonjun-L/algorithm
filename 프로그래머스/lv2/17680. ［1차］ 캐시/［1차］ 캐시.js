@@ -1,21 +1,19 @@
 function solution(cacheSize, cities) {
-  const cache = [];
-  let count = 0;
-
-  for (let city of cities) {
+  const cacheArr = [];
+  return cities.reduce((acc, city) => {
     city = city.toLowerCase();
-    const include = cache.indexOf(city);
-    if (include !== -1) {
-      count++;
-      cache.splice(include, 1);
-      cache.unshift(city);
+    const cacheIndex = cacheArr.indexOf(city);
+    if (cacheIndex !== -1) {
+      cacheArr.splice(cacheIndex, 1);
+      cacheArr.push(city);
+      acc += 1;
     } else {
-      count += 5;
-      cache.unshift(city);
+      cacheArr.push(city);
+      acc += 5;
     }
-    if (cache.length > cacheSize) {
-      cache.pop();
+    if (cacheArr.length > cacheSize) {
+      cacheArr.shift();
     }
-  }
-  return count;
+    return acc;
+  }, 0);
 }
