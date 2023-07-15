@@ -1,11 +1,26 @@
 function solution(people, limit) {
-  people.sort((a, b) => a - b);
+  let answer = 0;
 
-  let j = people.length - 1;
-  for (var i = 0; i < j; j--) {
-    if (people[i] + people[j] <= limit) {
-      i++;
+  people = people.sort((a, b) => b - a);
+  let start = 0;
+  let end = people.length - 1;
+
+  while (start <= end) {
+    let boat = limit;
+
+    while (boat >= people[start]) {
+      boat -= people[start];
+      start++;
     }
+
+    while (boat >= people[end]) {
+      boat -= people[end];
+      end--;
+    }
+
+    answer++;
+    boat = limit;
   }
-  return people.length + i - i * 2;
+
+  return answer;
 }
