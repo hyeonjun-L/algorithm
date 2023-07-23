@@ -1,11 +1,13 @@
 function strSplit(str) {
   const strArray = [];
+
   for (let i = 0; i < str.length - 1; i++) {
     const element = (str[i] + str[i + 1]).toUpperCase();
     if (/^[A-Z]*$/.test(element)) {
       strArray.push(element);
     }
   }
+
   return strArray;
 }
 
@@ -19,6 +21,7 @@ function solution(str1, str2) {
   const intersection = [];
   str1.forEach((element) => {
     const elementIndex = str2.indexOf(element);
+
     if (elementIndex !== -1) {
       str2.splice(elementIndex, 1);
       intersection.push(element);
