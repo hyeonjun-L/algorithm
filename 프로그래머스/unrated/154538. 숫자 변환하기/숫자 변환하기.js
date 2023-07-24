@@ -1,9 +1,10 @@
+
 function solution(x, y, n) {
   const dp = new Array(y + 1).fill(Infinity);
   dp[x] = 0;
 
   for (let i = x; i <= y; i++) {
-    if (dp[i] === Infinity) continue; // 이전에 도달할 수 없는 경우는 스킵
+    if (dp[i] === Infinity) continue;
 
     if (i + n <= y) {
       dp[i + n] = Math.min(dp[i + n], dp[i] + 1);
