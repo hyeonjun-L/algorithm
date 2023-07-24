@@ -1,31 +1,17 @@
 function solution(bridge_length, weight, truck_weights) {
-  const truck_on_bridge_obj = new Map();
-  truck_weights.reverse();
-  let bridge_weight = 0;
-  let answer = 0;
+    let time = 1;
+    let queue = [];
 
-  while (truck_weights.length !== 0 || bridge_weight !== 0) {
-    answer++;
-    for (const [key, value] of truck_on_bridge_obj.entries()) {
-      if (value === 0) {
-        const [truck, t] = key.split("&");
+    do {
+        if (queue.length > 0 && queue[0][1] === time) queue.shift();
 
-        bridge_weight -= truck;
-        truck_on_bridge_obj.delete(key);
-      } else {
-        truck_on_bridge_obj.set(key, value - 1);
-      }
-    }
-
-    if (bridge_weight + truck_weights.at(-1) <= weight) {
-      const truck = truck_weights.pop();
-      bridge_weight += truck;
-      truck_on_bridge_obj.set(
-        truck + `&${truck_weights.length}`,
-        bridge_length - 1
-      );
-    }
-  }
-
-  return answer;
+        if (queue.length < bridge_length && queue.reduce((acc, cur) => acc + cur[0], 0) + truck_weights[0] <= weight) {
+            queue.push([truck_weights.shift(), time + bridge_length]);
+            time++;
+        } else {
+            const [w, t] = queue.shift();
+            time = t;
+        }
+    } while (queue.length || truck_weights.length)
+    return time;
 }
