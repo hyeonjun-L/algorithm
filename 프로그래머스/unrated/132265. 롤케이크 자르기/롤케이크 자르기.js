@@ -22,10 +22,6 @@ function solution(topping) {
       brother.delete(tp);
     }
 
-    if (brother.size === cheolsu.size) {
-      return (acc += 1);
-    } else {
-      return acc;
-    }
+    return brother.size === cheolsu.size ? (acc += 1) : acc;
   }, 0);
 }
