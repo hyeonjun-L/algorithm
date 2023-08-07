@@ -1,6 +1,7 @@
 function solution(numbers) {
-  let count = 0;
   const visitedValue = new Map();
+  const visited = Array.from({ length: numbers.length }, () => false);
+  numbers = numbers.split("");
 
   function isPrime(n) {
     if (n <= 1) return false;
@@ -10,23 +11,24 @@ function solution(numbers) {
     return true;
   }
 
-  function bfs(number, visited) {
-    if (number !== "" && isPrime(Number(number)) && !visitedValue.has(Number(number))) {
-      count++;
+  function dfs(number, visited) {
+    if (
+      number !== "" &&
+      isPrime(Number(number)) &&
+      !visitedValue.has(Number(number))
+    ) {
       visitedValue.set(Number(number), 1);
     }
 
     for (let i = 0; i < numbers.length; i++) {
       if (visited[i]) continue;
       visited[i] = true;
-      bfs(number + numbers[i], visited);
+      dfs(number + numbers[i], visited);
       visited[i] = false;
     }
   }
 
-  numbers = numbers.split("");
-  const visited = Array.from({ length: numbers.length }, () => false);
-  bfs("", visited);
+  dfs("", visited);
 
-  return count;
+  return visitedValue.size;
 }
