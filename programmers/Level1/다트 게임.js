@@ -23,6 +23,12 @@ function solution(dartResult) {
 }
 
 /*
+  nums = nums.match(/\d/)
+  nums = nums.match(/\d/g)
+  console.log(nums) // 차이점
+*/
+
+/*
 function solution(dartResult) {
     const bonus = { 'S': 1, 'D': 2, 'T': 3 },
           options = { '*': 2, '#': -1, undefined: 1 };
