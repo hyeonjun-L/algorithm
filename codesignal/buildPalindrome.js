@@ -46,3 +46,17 @@ function checkString(st) {
 
   return true;
 }
+
+function solution(st) {
+  const len = st.length;
+
+  const reversed = st.split("").reverse().join("");
+
+  for (let i = 0; i < len; i++) {
+    if (st.substring(i) === reversed.substring(0, len - i)) {
+      return st + reversed.substring(len - i);
+    }
+  }
+
+  return st + reversed.substring(1);
+}
